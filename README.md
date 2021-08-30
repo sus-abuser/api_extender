@@ -3,3 +3,6 @@ This github is created so people can load the library directly from github.
 
 # info
 If you are a scripter and want to add something to the extension, feel free to make a pull request, if the code is fine I will accept it.
+
+# about pull requests
+When you add something to the library.lua, please add the function to description.txt too!

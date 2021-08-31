@@ -29,3 +29,21 @@ Rect.new(30, 30, 10, 10):PointInside(Vector2.new(30, 20));
 ```
 
 #
+
+# C_BasePlayer:GetWeapons
+### C_BasePlayer:GetWeapons()
+### Get a table of C_BaseCombatWeapon objects from the current entity.
+```lua
+-- Example
+local localPlayer = EntityList.GetLocalPlayer();
+
+if (localPlayer ~= nil) then
+    local wepTable = localPlayer:GetWeapons();
+
+    for i = 1, #wepTable do
+        print(wepTable[i]:GetClassName());
+    end
+end
+```
+
+#

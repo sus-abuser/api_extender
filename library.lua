@@ -41,3 +41,19 @@ function Rect:PointInside(vec2)
 
     return false;
 end
+
+function C_BasePlayer:GetWeapons()
+    local plyWeapons = self:GetProp("m_hMyWeapons");
+    local returnTable = {};
+
+    if (type(plyWeapons) == "table" and #plyWeapons > 0) then 
+        for i = 1, #plyWeapons do
+            local wep = EntityList.GetWeaponFromHandle(plyWeapons[i]);
+            if (wep ~= nil) then
+                table.insert(returnTable, wep);
+            end
+        end
+    end
+
+    return returnTable;
+end

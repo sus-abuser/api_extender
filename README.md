@@ -6,7 +6,7 @@
 #
 
 ### HOW TO USE
-####I suggest using a lua minifier to make the entire library fit in 1 line
+I suggest using a lua minifier to make the entire library fit in 1 line
 
 You need to copy paste the library at the top of your lua script.
 

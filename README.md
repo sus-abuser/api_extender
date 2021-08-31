@@ -6,9 +6,7 @@
 #
 
 ### HOW TO USE
-```lua
-loadstring(Http.Get("https://raw.githubusercontent.com/sus-abuser/api_extender/main/library.lua"))() -- at the start of your script to download and run the code inside the library.lua
-```
+You need to copy paste the library at the top of your lua script.
 You can look inside [description.md](https://github.com/sus-abuser/api_extender/blob/main/description.md) for documentation.
 
 #

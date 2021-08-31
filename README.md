@@ -1,8 +1,14 @@
-# api_extender
-This github is created so people can load the library directly from github.
+# NEVERLOSE API EXTENSION
+### INFO
+1. When you modify something, please also add it to [description.md](https://github.com/sus-abuser/api_extender/blob/main/description.md), you have examples there.
+2. The code you add is going to be checked and tested, so please also check it before you push it.
 
-# info
-If you are a scripter and want to add something to the extension, feel free to make a pull request, if the code is fine I will accept it.
+#
 
-# about pull requests
-When you add something to the library.lua, please add the function to description.txt too!
+### HOW TO USE
+```lua
+loadstring(Http.Get("https://raw.githubusercontent.com/sus-abuser/api_extender/main/library.lua"))() -- at the start of your script to download and run the code inside the library.lua
+```
+You can look inside [description.md](https://github.com/sus-abuser/api_extender/blob/main/description.md) for documentation.
+
+#

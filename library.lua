@@ -16,3 +16,28 @@ function Render.ResizeText(text, maxSize, fontSize, font)
 
     return text;
 end
+
+function Vector2:DistTo(vec2)
+    if (vec2 ~= nil and type(vec2.x) == "number" and type(vec2.y) == "number") then
+        return (self - vec2):Length();
+    end
+
+    return 0;
+end
+
+function Rect:PointInside(vec2)
+    if (vec2 ~= nil and type(vec2.x) == "number" and type(vec2.y) == "number") then
+        local x, y, x2, y2;
+        if (self.x >= self.z) then x, x2 = self.z, self.x; else x, x2 = self.x, self.z; end
+        if (self.y >= self.w) then y, y2 = self.w, self.y; else y, y2 = self.y, self.w; end
+        -- if the second rect point is before the first rect point ^
+
+        if (vec2.x >= x and vec2.x <= x2) then
+            if (vec2.y >= y and vec2.y <= y2) then
+                return true;
+            end
+        end
+    end
+
+    return false;
+end

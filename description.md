@@ -1,1 +1,1 @@
-# example: C_BaseEntity:IsAlive() -> Will return true if the entity is alive or false if the entity is dead.
+### example: C_BaseEntity:IsAlive() -> Will return true if the entity is alive or false if the entity is dead.

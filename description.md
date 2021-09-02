@@ -99,6 +99,8 @@ if (localPlayer) then
 end
 ```
 
+#
+
 # VMT Hooking
 ### PaintTraverse Example
 ### Reading current panel's name

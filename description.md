@@ -71,7 +71,7 @@ end
 local localPlayer = EntityList.GetLocalPlayer();
 
 if (localPlayer) then
-    print(localPlayer:GetVelocity():Length())
+    print(localPlayer:GetVelocity())
     -- local velocity length
 end
 ```

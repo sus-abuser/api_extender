@@ -99,4 +99,31 @@ if (localPlayer) then
 end
 ```
 
-#
+# VMT Hooking
+### PaintTraverse Example
+### Reading current panel's name
+
+```lua
+ffi.cdef[[
+    typedef void(__fastcall* hkPaintTraverse)(void*, void*, uint32_t, bool, bool);
+    typedef void(__thiscall* oPaintTraverse)(void*, uint32_t, bool, bool);
+    typedef const char*(__thiscall* oGetPanelName)(void*, uint32_t);
+]]
+
+-- ^^^ function prototypes
+
+local g_pPanel = Utils.CreateInterface("vgui2.dll", "VGUI_Panel009") -- get interface
+local g_pPanelVMT = CreateVMT(g_pPanel) -- 
+
+local oPaintTraverse = GetOriginal(g_pPanelVMT, 41, "oPaintTraverse") -- get original address of painttraverse(actually it is neverlose's)
+local oGetPanelName = GetOriginal(g_pPanelVMT, 36, "oGetPanelName") -- same ^^^
+
+function hkPaintTraverse(ecx, edx, vguipanel, b1, b2)
+    print(ffi.string(oGetPanelName(ecx, vguipanel))) -- current panel's name
+
+    oPaintTraverse(ecx, vguipanel, b1, b2) -- call original to prevent issues
+end
+Hook(g_pPanelVMT, 41, hkPaintTraverse, "hkPaintTraverse") -- magic
+
+Cheat.RegisterCallback("destroy", RemoveHooks) -- NOTICE: this line is must have to prevent crashes/undefined behavior
+```

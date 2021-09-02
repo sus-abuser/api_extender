@@ -113,3 +113,46 @@ end
 function C_BasePlayer:GetHP()
     return self:GetProp("m_iHealth")
 end
+
+vmthooks = {}
+function CreateVMT(target)
+    target = ffi.cast("uintptr_t**", target) -- cast void* to uintptr_t** to get virtual table
+
+    local pOriginalTable = target[0] -- get virtual table base
+    local iVMTSize = 0 -- init virtual table size variable
+
+    while(pOriginalTable[iVMTSize] ~= 0x0) do
+        iVMTSize = iVMTSize + 1 -- increase until we hit NULL to find virtual table size
+    end
+
+    local pNewVTable = ffi.new("uintptr_t[".. iVMTSize .."]") -- allocate memory for the replacement of original virtual table
+    ffi.copy(pNewVTable, pOriginalTable, iVMTSize * ffi.sizeof("uintptr_t")) -- copy original virtual table's methods addresses to our virtual table
+
+    target[0] = pNewVTable -- overriding vtable base address
+
+    table.insert(vmthooks, {base = target, original = pOriginalTable, size = iVMTSize, new = pNewVTable}) -- save some variables for further usage
+
+    return vmthooks[#vmthooks] --
+end
+
+function DeleteVMT(vmt)
+    vmt.base[0] = vmt.original -- restore original vtable base address
+end
+
+function GetOriginal(vmt, idx, cast)
+    return ffi.cast(cast, vmt.original[idx]) -- get original method address
+end
+
+function Hook(vmt, idx, to, cast)
+    vmt.new[idx] = ffi.cast("uintptr_t", ffi.cast(cast, to)) -- override method address
+end
+
+function UnHook(vmt, idx)
+    vmt.new[idx] = vmt.original[idx] -- resotre method address
+end
+
+function RemoveHooks()
+    for _, vmt in pairs(vmthooks) do
+        DeleteVMT(vmt) -- restore all vmt hooks that we have created
+    end
+end

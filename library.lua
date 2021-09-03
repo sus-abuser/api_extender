@@ -58,6 +58,14 @@ function C_BasePlayer:GetWeapons()
     return returnTable;
 end
 
+local flags = {
+    OnGround = 0, IsDucking = 1,
+    WaterJump = 3, OnTrain = 4,
+    InRain = 5, IsFrozen = 6,
+    AtControls = 7, IsClient = 8,
+    IsFakeClient = 9, InWater = 10
+};
+
 function C_BasePlayer:CheckFlag(...)
     local flagList = {...};
     local flagValues = true;

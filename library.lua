@@ -57,61 +57,31 @@ function C_BasePlayer:GetWeapons()
 
     return returnTable;
 end
--- Check flags
-function C_BasePlayer:IsOnGround()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,0)) ~= 0
+
+function C_BasePlayer:CheckFlag(...)
+    local flagList = {...};
+    local flagValues = true;
+
+    if (type(flagList) == "table" and #flagList > 0) then
+        for i = 1, #flagList do
+            if (bit.band(self:GetProp("m_fFlags"), bit.lshift(1, flagList[i])) == 0) then flagValues = false; end
+        end
+    end
+
+    return flagValues;
 end
 
-function C_BasePlayer:IsInAir()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,0)) == 0
-end
-
-function C_BasePlayer:IsDucking()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,1)) ~= 0
-end
-
-function C_BasePlayer:IsWaterJump()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,3)) ~= 0
-end
-
-function C_BasePlayer:IsOnTrain()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,4)) ~= 0
-end
-
-function C_BasePlayer:IsInRain()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,5)) ~= 0
-end
-
-function C_BasePlayer:IsFrozen()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,6)) ~= 0
-end
-
-function C_BasePlayer:IsAtControls()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,7)) ~= 0
-end
-
-function C_BasePlayer:IsClient()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,8)) ~= 0
-end
-
-function C_BasePlayer:IsFakeClient()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,9)) ~= 0
-end
-
-function C_BasePlayer:IsInWater()
-    return bit.band(self:GetProp("m_fFlags"), bit.lshift(1,10)) ~= 0
-end
--- getprop
 function C_BasePlayer:GetVelocity()
-    return self:GetProp("m_vecVelocity")
+    local vel = self:GetProp("m_vecVelocity");
+    if (vel ~= nil) then return vel:Length(); end
+end
+
+function C_BasePlayer:GetHealth()
+    return self:GetProp("m_iHealth")
 end
 
 function C_BasePlayer:IsAlive()
-    return self:GetProp("m_iHealth") > 0
-end
-
-function C_BasePlayer:GetHP()
-    return self:GetProp("m_iHealth")
+    return self:GetHP() > 0
 end
 
 vmthooks = {}

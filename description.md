@@ -46,17 +46,21 @@ if (localPlayer ~= nil) then
 end
 ```
 
-# C_BasePlayer flag check
-### C_BasePlayer:function
-### Functions: IsOnGround(), IsInAir(), IsDucking(), IsWaterJump(), IsOnTrain(), IsInRain(), IsFrozen(), IsAtControls(), IsClient(), IsFakeClient(), IsInWater()
+# C_BasePlayer:CheckFlag
+### C_BasePlayer:CheckFlag(args (Variadic))
+### Flags: flags . [OnGround, IsDucking, WaterJump, OnTrain, InRain, IsFrozen, AtControls, IsClient, IsFakeClient, InWater]
 ```lua
 -- Example
 local localPlayer = EntityList.GetLocalPlayer();
 
 if (localPlayer) then
-    if (localPlayer:IsInAir()) then
-        --todo
-    end
+    if (localPlayer:CheckFlag(flags.OnGround)) then
+        -- OnGround is true
+    end  
+    -- or   
+    if (localPlayer:CheckFlag(flags.OnGround, flags.IsDucking)) then
+        -- Both OnGround and IsDucking are true
+    end  
 end
 ```
 
@@ -67,7 +71,7 @@ end
 local localPlayer = EntityList.GetLocalPlayer();
 
 if (localPlayer) then
-    print(localPlayer:GetVelocity():Length())
+    print(localPlayer:GetVelocity())
     -- local velocity length
 end
 ```
@@ -85,15 +89,15 @@ if (localPlayer) then
 end
 ```
 
-# C_BasePlayer:GetHP
-### C_BasePlayer:GetHP()
+# C_BasePlayer:GetHealth
+### C_BasePlayer:GetHealth()
 ### Get player's health
 
 ```lua
 local localPlayer = EntityList.GetLocalPlayer();
 
 if (localPlayer) then
-    if (localPlayer:GetHP() < 50) then
+    if (localPlayer:GetHealth() < 50) then
         -- todo
     end
 end

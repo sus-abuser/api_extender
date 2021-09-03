@@ -59,14 +59,6 @@ function C_BasePlayer:GetWeapons()
 end
 
 local flags = {
-    OnGround = 0, IsDucking = 1,
-    WaterJump = 3, OnTrain = 4,
-    InRain = 5, IsFrozen = 6,
-    AtControls = 7, IsClient = 8,
-    IsFakeClient = 9, InWater = 10
-};
-
-local flags = {
     OnGround = 0, InAir = {0},
     IsDucking = 1, WaterJump = 3,
     OnTrain = 4, InRain = 5,

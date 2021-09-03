@@ -66,13 +66,26 @@ local flags = {
     IsFakeClient = 9, InWater = 10
 };
 
+local flags = {
+    OnGround = 0, InAir = {0},
+    IsDucking = 1, WaterJump = 3,
+    OnTrain = 4, InRain = 5,
+    IsFrozen = 6, AtControls = 7,
+    IsClient = 8, IsFakeClient = 9,
+    InWater = 10
+};
+
 function C_BasePlayer:CheckFlag(...)
     local flagList = {...};
     local flagValues = true;
 
     if (type(flagList) == "table" and #flagList > 0) then
         for i = 1, #flagList do
-            if (bit.band(self:GetProp("m_fFlags"), bit.lshift(1, flagList[i])) == 0) then flagValues = false; end
+            if (type(flagList[i]) == "table") then
+                if (bit.band(self:GetProp("m_fFlags"), bit.lshift(1, flagList[i][1])) ~= 0) then flagValues = false; end
+            else
+                if (bit.band(self:GetProp("m_fFlags"), bit.lshift(1, flagList[i])) == 0) then flagValues = false; end
+            end
         end
     end
 
@@ -80,16 +93,15 @@ function C_BasePlayer:CheckFlag(...)
 end
 
 function C_BasePlayer:GetVelocity()
-    local vel = self:GetProp("m_vecVelocity");
-    if (vel ~= nil) then return vel:Length(); end
+    return self:GetProp("m_vecVelocity");
 end
 
 function C_BasePlayer:GetHealth()
-    return self:GetProp("m_iHealth")
+    return self:GetProp("m_iHealth");
 end
 
 function C_BasePlayer:IsAlive()
-    return self:GetHP() > 0
+    return self:GetHP() > 0;
 end
 
 vmthooks = {}

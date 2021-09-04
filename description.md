@@ -10,6 +10,20 @@ Render.ResizeText(text, maxSize, fontSize, font);
 
 #
 
+#
+
+# EngineTrace.TraceAngle
+### EngineTrace.TraceAngle(Vector (Required), QAngle (Required), number (Required), C_BasePlayer (Required), Mask (Required))
+### You can have a starting point and trace using an angle, such as your head position then trace your eye angles to get your crosshair location.
+```lua
+-- Example
+local trace = EngineTrace.TraceAngle(Vector.new(20, 20, 20), QAngle.new(45, 0, 0), 100, localPlayer, 0xFFFFFFFF);
+local pos1, pos2 = Render.WorldToScreen(trace.startpos), Render.WorldToScreen(trace.endpos);
+Render.Line(pos1, pos2, Color.new(1.0, 1.0, 1.0, 1.0))
+```
+
+#
+
 # Vector2:DistTo
 ### Render.ResizeText(Vector2 (Required))
 ### Get the distance between two 2D points.

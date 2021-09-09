@@ -17,6 +17,16 @@ function Render.ResizeText(text, maxSize, fontSize, font)
     return text;
 end
 
+function EngineTrace.TraceAngle(startPosition, angle, distance, skip, mask)
+    local ang = Vector.new(math.cos(angle.pitch * math.pi / 180.0) * math.cos(angle.yaw * math.pi / 180.0),
+                           math.cos(angle.pitch * math.pi / 180.0) * math.sin(angle.yaw * math.pi / 180.0),
+                           -1 * math.sin(angle.pitch * math.pi / 180.0));
+
+    local endPos = startPosition + ang * distance;
+
+    return EngineTrace.TraceRay(startPosition, endPos, skip, mask);
+end
+
 function Vector2:DistTo(vec2)
     if (vec2 ~= nil and type(vec2.x) == "number" and type(vec2.y) == "number") then
         return (self - vec2):Length();

@@ -103,7 +103,7 @@ function C_BasePlayer:GetHealth()
 end
 
 function C_BasePlayer:IsAlive()
-    return self:GetHP() > 0;
+    return self:GetHealth() > 0;
 end
 
 vmthooks = {}
